@@ -38,7 +38,6 @@ class SecurityService
     public function logout(): void
     {
         unset($_SESSION[$this->sessionKey]);
-
         session_destroy();
     }
 

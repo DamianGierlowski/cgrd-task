@@ -10,12 +10,19 @@ COPY . /var/www/html
 # Set the working directory to /var/www/html/public
 WORKDIR /var/www/html/public
 
+# Copy the .htaccess file to the document root
+COPY .htaccess /var/www/html/.htaccess
+
 # Set file permissions for Apache (www-data user)
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 # Enable Apache mod_rewrite, required for .htaccess file overrides
 RUN a2enmod rewrite
+
+# Update Apache config to allow .htaccess overrides
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
 
 # Configure Apache to serve files from the /var/www/html/public directory
 RUN echo "<VirtualHost *:80> \n\
