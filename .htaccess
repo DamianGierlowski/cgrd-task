@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+
+# Prevent infinite loop by excluding requests to index.php
+RewriteCond %{REQUEST_URI} !^/index\.php$
+
+# Route all requests to index.php if the file or directory doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
