@@ -8,8 +8,6 @@ class SecurityController extends Controller
 {
     public function index(): string
     {
-        $error = '';
-
         if ($this->isSubmited()) {
             $username = $_POST['username'] ?? null;
             $password = $_POST['password'] ?? null;
@@ -21,7 +19,7 @@ class SecurityController extends Controller
             $error = 'Invalid credentials!';
         }
 
-        return $this->render('security/index.twig', ['error' => $error]);
+        return $this->render('security/index.twig', ['error' => $error ?? '']);
     }
 
     public function logout(): void

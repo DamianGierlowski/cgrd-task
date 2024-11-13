@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.logo {
+    margin: 0 auto 1.5rem;
+    width: 80px;
+    height: auto;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    background: #f5f7fa;
+}
+
+textarea {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    background: #f5f7fa;
+    height: 160px;
+}
+
+button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #1d3b72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #162c51;
+}
+
+.error {
+    color: red;
+    margin-top: 0.5rem;
+}
+
+.message {
+    margin-top: 1rem;
+    color: #666;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.error-message {
+    color: #a94442;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 20px 15px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 20px 15px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+
+.news-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #e3e3e3; /* Light border */
+    border-radius: 4px;
+}
+
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-weight: bold;
+    color: #2b3a67; /* Dark blue for title */
+    margin-bottom: 15px  ;
+    font-size: 20px;
+    text-align: left;
+}
+
+.news-item-title {
+    font-weight: bold;
+    color: #2b3a67; /* Dark blue for title */
+    margin-right: 15px;
+}
+
+.news-item-description {
+    color: #555; /* Slightly darker gray for description text */
+    text-align: left;
+    flex-grow: 1;
+}
+
+.news-item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.news-item-actions a {
+    color: #2b3a67; /* Dark blue for icons */
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}

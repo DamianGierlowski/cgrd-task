@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Service\SecurityService;
+use Cassandra\DefaultSchema;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -13,7 +14,6 @@ class Controller
 
     public function __construct()
     {
-        // Initialize Twig loader and environment
         $loader = new FilesystemLoader(__DIR__ . '/templates');
         $this->twig = new Environment($loader);
         $this->auth = new SecurityService();
