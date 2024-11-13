@@ -7,6 +7,7 @@ require_once '../src/controllers/SecurityController.php';
 require_once '../src/controllers/AdminController.php';
 require_once '../src/Service/SecurityService.php';
 require_once '../src/Repository/NewsRepository.php';
+require_once '../src/Repository/UserRepository.php';
 require_once '../vendor/autoload.php';
 
 use App\Controllers\AdminController;
