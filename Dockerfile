@@ -1,6 +1,14 @@
 # Use the official PHP Apache image as a base
 FROM php:8.3-apache
 
+# Install dependencies: curl, git, unzip, zip extension
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    unzip \
+    libzip-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install required PHP extensions for MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
@@ -24,8 +32,8 @@ RUN a2enmod rewrite
 COPY migrations /var/www/migrations
 COPY migration_run.php /var/www/migration_run.php
 
-# Run migrations during build
-RUN php /var/www/migration_run.php
+# Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Update Apache config to allow .htaccess overrides
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf

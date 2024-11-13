@@ -4,7 +4,7 @@ $db = getenv('DB_NAME');
 $user = getenv('DB_USER');
 $password = getenv('DB_PASS');
 
-$dsn = "mysql:host=db;dbname=news_db;";
+$dsn = "mysql:host=$host;dbname=$db";
 
 $pdo = new PDO($dsn, $user, $password);
 
