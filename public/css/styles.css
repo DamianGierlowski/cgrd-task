@@ -7,7 +7,7 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center; /* Center horizontally */
+    justify-content: center;
     min-height: 100vh;
 }
 
@@ -73,17 +73,6 @@ button:hover {
     color: #666;
 }
 
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
 .error-message {
     color: #a94442;
     background-color: #f8d7da;
@@ -114,8 +103,8 @@ button:hover {
     align-items: center;
     padding: 10px 15px;
     margin: 10px 0;
-    background-color: #f9f9f9; /* Light gray background */
-    border: 1px solid #e3e3e3; /* Light border */
+    background-color: #f9f9f9;
+    border: 1px solid #e3e3e3;
     border-radius: 4px;
 }
 
@@ -128,7 +117,7 @@ button:hover {
 
 .title {
     font-weight: bold;
-    color: #2b3a67; /* Dark blue for title */
+    color: #2b3a67;
     margin-bottom: 15px  ;
     font-size: 20px;
     text-align: left;
@@ -136,12 +125,12 @@ button:hover {
 
 .news-item-title {
     font-weight: bold;
-    color: #2b3a67; /* Dark blue for title */
+    color: #2b3a67;
     margin-right: 15px;
 }
 
 .news-item-description {
-    color: #555; /* Slightly darker gray for description text */
+    color: #555;
     text-align: left;
     flex-grow: 1;
 }
@@ -152,7 +141,7 @@ button:hover {
 }
 
 .news-item-actions a {
-    color: #2b3a67; /* Dark blue for icons */
+    color: #2b3a67;
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
