@@ -1,1 +1,145 @@
-<h1>hello world admin panel</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+    <img src="/images/logo.svg" alt="Logo" class="logo">
+
+    <div id="statusMessage"></div>
+    <ul id="newsList"></ul>
+
+    <div class="title-bar">
+        <p id="label" class="title">Create News</p>
+        <a href="#" onclick="resetForm()" id="resetButton" title="Clear Fields" style="display: none;">
+            <img src="images/close.svg" alt="Clear Fields" style="width: 16px; height: 16px;">
+        </a>
+    </div>
+
+    <form id="form">
+        <input type="hidden" name="id" id="id" value="">
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="content" placeholder="Content" required></textarea>
+        <button type="submit" id="submit">Create News</button>
+    </form>
+
+
+</div>
+
+<script>
+
+    const createForm = document.getElementById('form');
+    const submitButton = document.getElementById('submit');
+
+    $(document).ready(function() {
+        loadNews()
+    });
+
+    function editNews(id, title, content) {
+        const resetButton = document.getElementById('resetButton');
+        resetButton.style.display = 'inline';
+
+        createForm.elements['id'].value = id;
+        createForm.elements['title'].value = title;
+        createForm.elements['content'].value = content;
+
+        // submitButton.textContent = 'Update News';
+        document.getElementById('submit').textContent = 'Update News';
+        document.getElementById('label').textContent = 'Update News';
+
+
+        createForm.dataset.action = 'edit';
+    }
+
+    $(document).ready(function () {
+        $("#form").submit(function (event) {
+            event.preventDefault();
+
+            let actionUrl = '/admin/create';
+            if (createForm.dataset.action === 'edit') {
+                actionUrl = '/admin/update';
+            }
+            submitForm(actionUrl, $(this).serialize());
+        });
+    });
+
+    function submitForm(url, data) {
+        $.post(url, data, function (response) {
+            if (response.success) {
+                loadNews();
+                $("#statusMessage").text(response.message).addClass('success-message').removeClass('error-message')
+            } else {
+                $("#statusMessage").text(response.message).addClass('error-message').removeClass('success-message')
+            }
+
+            const createForm = document.getElementById('form');
+            createForm.reset();
+        });
+    }
+
+    function deleteNews(id) {
+        let url = `/admin/delete`;
+        $.post(url, { id: id }, function (response) {
+            if (response.success) {
+                loadNews();
+                $("#statusMessage").text(response.message).addClass('success-message').removeClass('error-message')
+            } else {
+                $("#statusMessage").text(response.message).addClass('error-message').removeClass('success-message')
+            }
+        });
+
+    }
+
+    function loadNews() {
+        const url = '/admin/news';
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const newsList = $('#newsList');
+                newsList.empty();
+                data.forEach(news => {
+                    const listItem = `
+                           <li class="news-item">
+                               <p class="news-item-title">${news.title}</p>
+                               <p class="news-item-description">${news.content}</p>
+                                <div class="news-item-actions">
+                                    <a href="#" onclick="editNews(${ news.id }, '${news.title}', '${news.content}')">
+                                    <img src="images/pencil.svg" alt="" style="width: 16px; height: 16px;">
+                                    </a>
+
+                                    <a href="#" onclick="deleteNews(${news.id })">
+                                    <img src="images/close.svg" alt="" style="width: 16px; height: 16px;">
+                                    </a>
+                               </div>
+                           </li>
+                       `;
+                    newsList.append(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching news:', error);
+                $('#articlesList').append('<li>Error loading news.</li>');
+            });
+    }
+
+    function resetForm() {
+        const createForm = document.getElementById('form');
+        createForm.reset();
+
+        document.getElementById('submit').textContent = 'Create News';
+        document.getElementById('label').textContent = 'Create News';
+
+        const statusMessage = document.getElementById('statusMessage');
+        statusMessage.textContent = '';
+
+        const resetButton = document.getElementById('resetButton');
+        resetButton.style.display = 'none';
+        createForm.dataset.action = 'create';
+        $("#statusMessage").removeClass('error-message').removeClass('success-message')
+    }
+
+</script>
+

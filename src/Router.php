@@ -6,7 +6,6 @@ class Router
 {
     public const GET = 'GET';
     public const POST = 'POST';
-    public const DELETE = 'DELETE';
 
     private $routes = [];
 
