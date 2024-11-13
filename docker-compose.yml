@@ -4,13 +4,17 @@ services:
   web:
     build:
       context: .
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=my_database
+      - DB_USER=root
+      - DB_PASS=password
     ports:
       - "8080:80"
     volumes:
       - .:/var/www/html
     depends_on:
       - db
-
   db:
     image: mariadb:latest
     environment:

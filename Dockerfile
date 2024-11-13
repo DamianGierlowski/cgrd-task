@@ -20,9 +20,15 @@ RUN chown -R www-data:www-data /var/www/html \
 # Enable Apache mod_rewrite, required for .htaccess file overrides
 RUN a2enmod rewrite
 
+# Copy migrations and migration script
+COPY migrations /var/www/migrations
+COPY migration_run.php /var/www/migration_run.php
+
+# Run migrations during build
+RUN php /var/www/migration_run.php
+
 # Update Apache config to allow .htaccess overrides
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
 
 # Configure Apache to serve files from the /var/www/html/public directory
 RUN echo "<VirtualHost *:80> \n\
