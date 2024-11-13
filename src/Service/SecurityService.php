@@ -2,23 +2,30 @@
 
 namespace App\Service;
 
+use App\Repository\UserRepository;
+
 class SecurityService
 {
     private string $sessionKey = '';
+    private UserRepository $repository;
 
     public function __construct()
     {
+        $this->repository = new UserRepository();
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
 
-    public function login(?string $username, ?string $password): bool
+    public function login(string $username, ?string $password): bool
     {
-        $validUsername = 'admin'; //TODO
-        $validPassword = 'test';//TODO
+        $user = $this->repository->findOneByName($username);
 
-        if ($username === $validUsername && $password === $validPassword) {
+        if (empty($user)) {
+            return false;
+        }
+
+        if ($this->verifyPassword($password, $user['password'])) {
             $_SESSION[$this->sessionKey] = [
                 'username' => $username,
                 'logged_in' => true,
@@ -44,6 +51,16 @@ class SecurityService
     public function getUser(): ?array
     {
         return $_SESSION[$this->sessionKey] ?? null;
+    }
+
+    public function hashPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function verifyPassword(string $password, string $hashedPassword): bool
+    {
+        return password_verify($password, $hashedPassword);
     }
 
 }
